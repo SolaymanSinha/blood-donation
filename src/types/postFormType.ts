@@ -2,16 +2,20 @@ export type TReceiverPostFormType = {
 	name: string;
 	mobile: string;
 	bloodGroup: string;
-	location: string;
 	description: string;
-	isBloodReceive: boolean;
+	isBloodReceive?: boolean;
+	division: string;
+	district: string;
+	subDistrict: string;
 };
 
 export type TDonorPostFormType = {
 	name: string;
 	mobile: string;
 	bloodGroup: string;
-	location: string;
 	description: string;
 	isAvailable: boolean;
+	division: string;
+	district: string;
+	subDistrict: string;
 };

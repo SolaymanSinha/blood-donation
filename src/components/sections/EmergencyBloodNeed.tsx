@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import { ThreeDCardContainer } from '../custom/3d-card-container';
-import Modal from './Modal';
 
 const EmergencyBlood = () => {
 	const [bloodNeedData, setBloodNeedData] = React.useState([]);
@@ -16,11 +15,8 @@ const EmergencyBlood = () => {
 		}
 	});
 	return (
-		<section>
-			<div className='flex justify-between -mb-10 z-10'>
-				<h1 className='text-5xl font-bold'>জরুরি রক্ত প্রয়োজন</h1>
-				<Modal />
-			</div>
+		<section className='mt-20'>
+			<h1 className='text-5xl font-bold mb-10'>জরুরি রক্ত প্রয়োজন</h1>
 
 			<div className='flex gap-5 overflow-scroll -z-10'>
 				{bloodNeedData.map((post: any) => {

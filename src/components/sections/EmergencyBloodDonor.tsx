@@ -14,18 +14,19 @@ const EmergencyBloodDonor = () => {
 		}
 	});
 	return (
-		<section className='mt-5'>
+		<section>
 			<div>
-				<h1 className='text-5xl font-bold'>জরুরি রক্ত দাতা</h1>
+				<h1 className='text-5xl font-bold mb-10'>জরুরি রক্ত দাতা</h1>
 			</div>
 
-			<div className='flex gap-5 overflow-scroll -mt-10'>
+			<div className='flex gap-5 overflow-scroll'>
 				{bloodDonorData.map((post: any) => {
 					return (
-						<ThreeDCardContainer
+						<div
 							key={post.id}
-							post={post}
-						/>
+							className='place-self-stretch justify-items-stretch justify-self-stretch'>
+							<ThreeDCardContainer post={post} />
+						</div>
 					);
 				})}
 			</div>

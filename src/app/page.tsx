@@ -1,7 +1,6 @@
 import EmergencyBloodDonor from '@/components/sections/EmergencyBloodDonor';
 import EmergencyBlood from '@/components/sections/EmergencyBloodNeed';
 import { HeaderSection } from '@/components/sections/Header';
-import Modal from '@/components/sections/Modal';
 
 export default function Home() {
 	return (
@@ -14,7 +13,7 @@ export default function Home() {
 				<EmergencyBlood />
 			</div>
 
-			<div className='mt-20'>
+			<div className='mt-32'>
 				<EmergencyBloodDonor />
 			</div>
 		</main>
