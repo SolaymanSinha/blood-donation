@@ -16,8 +16,10 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='en'>
-			<body className={`${noto_serif.className} container mx-auto p-2`}>{children}</body>
+		<html
+			className='bg-transparent'
+			lang='en'>
+			<body className={`${noto_serif.className} container mx-auto p-2 bg-black`}>{children}</body>
 		</html>
 	);
 }

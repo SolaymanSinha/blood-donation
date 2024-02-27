@@ -6,21 +6,17 @@ import Modal from '@/components/sections/Modal';
 export default function Home() {
 	return (
 		<main>
-			<div>
+			<div className='-z-10'>
 				<HeaderSection />
 			</div>
 
-			<div className='mt-20'>
+			<div className='mt-32 z-10'>
 				<EmergencyBlood />
 			</div>
 
 			<div className='mt-20'>
 				<EmergencyBloodDonor />
 			</div>
-
-			{/* Open the modal using document.getElementById('ID').showModal() method */}
-
-			<Modal />
 		</main>
 	);
 }
