@@ -21,6 +21,7 @@ const config: Config = {
 		},
 	},
 	plugins: [
+		require('daisyui'),
 		function ({ matchUtilities, theme }: any) {
 			matchUtilities(
 				{
