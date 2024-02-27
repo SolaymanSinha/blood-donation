@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={`${noto_serif.className} container mx-auto`}>{children}</body>
+			<body className={`${noto_serif.className} container mx-auto p-2`}>{children}</body>
 		</html>
 	);
 }
