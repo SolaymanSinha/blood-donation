@@ -28,11 +28,3 @@ body {
     text-wrap: balance;
   }
 }
-
-/* Noto Serif Bangla Font: Weight: 100-900 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@100..900&display=swap');
-
-body {
-  font-family: "Noto Serif Bengali", serif;
-  font-weight: 400;
-}
