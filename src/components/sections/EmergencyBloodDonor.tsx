@@ -1,18 +1,9 @@
 'use client';
 import React from 'react';
 import { ThreeDCardContainer } from '../custom/3d-card-container';
+import { bloodDonorPost } from '@/DB/db';
 
 const EmergencyBloodDonor = () => {
-	const [bloodDonorData, setBloodDonorData] = React.useState([]);
-	React.useEffect(() => {
-		try {
-			fetch('http://localhost:3001/bloodDonorPost')
-				.then(res => res.json())
-				.then(data => setBloodDonorData(data));
-		} catch (e) {
-			console.log(e);
-		}
-	});
 	return (
 		<section>
 			<div>
@@ -20,7 +11,7 @@ const EmergencyBloodDonor = () => {
 			</div>
 
 			<div className='flex gap-5 overflow-scroll'>
-				{bloodDonorData.map((post: any) => {
+				{bloodDonorPost.map((post: any) => {
 					return (
 						<div
 							key={post.id}
