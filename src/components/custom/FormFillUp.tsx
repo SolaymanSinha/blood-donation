@@ -15,6 +15,7 @@ const FormFillUp = ({ whichForm }: { whichForm: 'Donor' | 'Receiver' }) => {
 	}
 
 	const methods = useForm<typeof postForm>({
+		mode: 'onChange',
 		defaultValues: {
 			district: 'আপনার জেলা নির্বাচন করুন',
 			subDistrict: 'আপনার উপজেলা নির্বাচন করুন',
@@ -66,7 +67,12 @@ const FormFillUp = ({ whichForm }: { whichForm: 'Donor' | 'Receiver' }) => {
 export default FormFillUp;
 
 const NameField = () => {
-	const { register } = useFormContext(); // retrieve all hook methods
+	const {
+		register,
+		formState: { errors },
+	} = useFormContext(); // retrieve all hook methods
+	console.log(errors);
+
 	return (
 		<div className='w-full'>
 			<label
@@ -76,18 +82,25 @@ const NameField = () => {
 			</label>
 			<br />
 			<input
-				{...register('name')}
+				{...register('name', {
+					required: 'নাম দেয়া বাধ্যতামূলক',
+				})}
 				type='text'
 				placeholder='এখানে আপনার নাম লিখুন'
 				id='userName'
 				className='input input-bordered w-full max-w-xs'
 			/>
+
+			{errors.name && typeof errors.name.message == 'string' && <p className='text-red-500 mt-2'>{errors.name.message}</p>}
 		</div>
 	);
 };
 
 const MobileNumberField = () => {
-	const { register } = useFormContext(); // retrieve all hook methods
+	const {
+		register,
+		formState: { errors },
+	} = useFormContext(); // retrieve all hook methods
 	return (
 		<div className='w-full'>
 			<label
@@ -97,24 +110,33 @@ const MobileNumberField = () => {
 			</label>
 			<br />
 			<input
-				{...register('mobile')}
+				{...register('mobile', {
+					required: 'মোবাইল নাম্বার দেয়া বাধ্যতামূলক',
+				})}
 				type='text'
 				placeholder='এখানে আপনার মোবাইল নাম্বার লিখুন'
 				id='userName'
 				className='input input-bordered w-full max-w-xs'
 			/>
+
+			{errors.mobile && typeof errors.mobile.message == 'string' && <p className='text-red-500 mt-2'>{errors.mobile.message}</p>}
 		</div>
 	);
 };
 
 const BloodGroupField = () => {
-	const { register } = useFormContext(); // retrieve all hook methods
+	const {
+		register,
+		formState: { errors },
+	} = useFormContext(); // retrieve all hook methods
 	return (
 		<div className='w-full'>
 			<label htmlFor='bloodGroup'>রক্তের গ্রুপ</label>
 			<br />
 			<select
-				{...register('bloodGroup')}
+				{...register('bloodGroup', {
+					required: 'রক্তের গ্রুপ দেয়া বাধ্যতামূলক',
+				})}
 				className='select select-bordered w-full'>
 				<option
 					disabled
@@ -131,19 +153,33 @@ const BloodGroupField = () => {
 					);
 				})}
 			</select>
+
+			{errors.bloodGroup && typeof errors.bloodGroup.message == 'string' && (
+				<p className='text-red-500 mt-2'>{errors.bloodGroup.message}</p>
+			)}
 		</div>
 	);
 };
 
 const DivisionField = () => {
-	const { register } = useFormContext(); // retrieve all hook methods
+	const {
+		register,
+		resetField,
+		formState: { errors },
+	} = useFormContext(); // retrieve all hook methods
 
 	return (
 		<div className='w-full'>
 			<label htmlFor='bloodGroup'>বিভাগ</label>
 			<br />
 			<select
-				{...register('division')}
+				{...register('division', {
+					onChange: () => {
+						resetField('district');
+						resetField('subDistrict');
+					},
+					required: 'বিভাগ দেয়া বাধ্যতামূলক',
+				})}
 				className='select select-bordered w-full'>
 				<option
 					value={'আপনার বিভাগ নির্বাচন করুন'}
@@ -160,12 +196,21 @@ const DivisionField = () => {
 					);
 				})}
 			</select>
+
+			{errors.division && typeof errors.division.message == 'string' && (
+				<p className='text-red-500 mt-2'>{errors.division.message}</p>
+			)}
 		</div>
 	);
 };
 
 const DistrictField = () => {
-	const { register, watch, resetField } = useFormContext(); // retrieve all hook methods
+	const {
+		register,
+		watch,
+		resetField,
+		formState: { errors },
+	} = useFormContext(); // retrieve all hook methods
 	const division: string = watch('division');
 
 	return (
@@ -173,7 +218,12 @@ const DistrictField = () => {
 			<label htmlFor='bloodGroup'>জেলা</label>
 			<br />
 			<select
-				{...register('district')}
+				{...register('district', {
+					onChange: () => {
+						resetField('subDistrict');
+					},
+					required: 'জেলা দেয়া বাধ্যতামূলক',
+				})}
 				className='select select-bordered w-full'>
 				<option
 					value={'আপনার জেলা নির্বাচন করুন'}
@@ -191,34 +241,31 @@ const DistrictField = () => {
 						);
 					})}
 			</select>
+
+			{errors.district && typeof errors.district.message == 'string' && (
+				<p className='text-red-500 mt-2'>{errors.district.message}</p>
+			)}
 		</div>
 	);
 };
 
 const SubDistrictsField = () => {
-	const { register, watch, getFieldState, resetField } = useFormContext(); // retrieve all hook methods
+	const {
+		register,
+		watch,
+		formState: { errors },
+	} = useFormContext(); // retrieve all hook methods
 	const division: string = watch('division');
 	const district: string = watch('district');
-
-	if (getFieldState('division').isTouched && (getFieldState('district').isTouched || getFieldState('subDistrict').isTouched)) {
-		if (division === 'আপনার বিভাগ নির্বাচন করুন') {
-			return;
-		}
-
-		resetField('district');
-		resetField('subDistrict');
-	}
-
-	// if (getFieldState('district').isTouched && getFieldState('subDistrict').isDirty) {
-	// 	resetField('subDistrict');
-	// }
 
 	return (
 		<div className='w-full'>
 			<label htmlFor='bloodGroup'>উপজেলা</label>
 			<br />
 			<select
-				{...register('subDistrict')}
+				{...register('subDistrict', {
+					required: 'উপজেলা দেয়া বাধ্যতামূলক',
+				})}
 				className='select select-bordered w-full'>
 				<option
 					value={'আপনার উপজেলা নির্বাচন করুন'}
@@ -241,6 +288,10 @@ const SubDistrictsField = () => {
 						);
 					})}
 			</select>
+
+			{errors.subDistrict && typeof errors.subDistrict.message == 'string' && (
+				<p className='text-red-500 mt-2'>{errors.subDistrict.message}</p>
+			)}
 		</div>
 	);
 };
